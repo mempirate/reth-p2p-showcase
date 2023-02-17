@@ -1,0 +1,27 @@
+[package]
+name = "reth-p2p"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+secp256k1 = "0.24"
+tokio = { version = "1.24", features = ["full"] }
+tokio-stream = "0.1"
+anyhow = "1.0"
+
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+
+# reth
+reth-primitives = { git = "https://github.com/paradigmxyz/reth" }
+reth-interfaces = { git = "https://github.com/paradigmxyz/reth" }
+reth-eth-wire = { git = "https://github.com/paradigmxyz/reth" }
+reth-network = { git = "https://github.com/paradigmxyz/reth" }
+reth-network-api = { git = "https://github.com/paradigmxyz/reth" }
+reth-discv4 = { git = "https://github.com/paradigmxyz/reth" }
+reth-provider = { git = "https://github.com/paradigmxyz/reth", features = [
+  "test-utils",
+] }
