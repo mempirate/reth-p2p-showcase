@@ -16,8 +16,7 @@ async fn main() -> anyhow::Result<()> {
     // Generate a random ECDSA private key.
     let secret = SecretKey::new(&mut rand::thread_rng());
 
-    // Create the network builder with the secret key, which allows you to configure the network.
-    // The defaults will do for now.
+    // Disable the default discovery services.
     let builder = NetworkConfig::<NoopProvider>::builder(secret)
         .disable_dns_discovery()
         .disable_discv4_discovery()
@@ -48,8 +47,10 @@ async fn main() -> anyhow::Result<()> {
 
     // Create the discv4 config
     let discv4_config = Discv4ConfigBuilder::default()
+        // Decrease lookup interval to 5 seconds (from 20 sec default)
         .lookup_interval(Duration::from_secs(5))
-        .ban_duration(Some(Duration::from_secs(60 * 60)))
+        // Decrease ban duration to 30 minutes
+        .ban_duration(Some(Duration::from_secs(30 * 60)))
         .add_boot_nodes(mainnet_nodes())
         .build();
 
