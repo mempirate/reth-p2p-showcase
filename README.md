@@ -1,5 +1,5 @@
 # Reth p2p showcase
-Codebase for the accompanying article.
+Codebase for the accompanying article: https://fiber.chainbound.io/blog/reth-p2p
 
 ## Running the examples
 ```
