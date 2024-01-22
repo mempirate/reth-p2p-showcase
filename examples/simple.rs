@@ -1,21 +1,20 @@
-use reth_discv4::bootnodes::mainnet_nodes;
-use reth_p2p::init_tracing;
-use secp256k1::{rand, SecretKey};
 use std::sync::Arc;
 use tokio_stream::StreamExt;
 
-use reth_network::{NetworkConfig, NetworkManager};
+use reth_network::{config::rng_secret_key, NetworkConfig, NetworkEvents, NetworkManager};
+use reth_p2p::init_tracing;
+use reth_primitives::mainnet_nodes;
 use reth_provider::test_utils::NoopProvider;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     init_tracing();
     // Generate a random ECDSA private key.
-    let secret = SecretKey::new(&mut rand::thread_rng());
+    let secret = rng_secret_key();
 
     // Create the network builder with the secret key, which allows you to configure the network.
     // The defaults will do for now.
-    let builder = NetworkConfig::<NoopProvider>::builder(secret)
+    let builder = NetworkConfig::builder(secret)
         .disable_dns_discovery()
         .boot_nodes(mainnet_nodes());
 
